@@ -27,26 +27,36 @@ public class QuantityLength {
         return unit;
     }
 
-    private double convertToBase() {
-        return unit.toFeet(value);
+    // Convert this quantity to another unit
+    public QuantityLength convertTo(LengthUnit targetUnit) {
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+
+        double baseValue = unit.convertToBaseUnit(value);
+        double converted = targetUnit.convertFromBaseUnit(baseValue);
+
+        return new QuantityLength(converted, targetUnit);
     }
 
-
-    //add quantity length method
+    // UC6 Addition (default unit)
     public QuantityLength add(QuantityLength other) {
 
         if (other == null) {
             throw new IllegalArgumentException("Quantity cannot be null");
         }
 
-        double sumFeet = this.convertToBase() + other.convertToBase();
-        double result = unit.fromFeet(sumFeet);
+        double sumFeet =
+                unit.convertToBaseUnit(value) +
+                other.unit.convertToBaseUnit(other.value);
+
+        double result = unit.convertFromBaseUnit(sumFeet);
 
         return new QuantityLength(result, unit);
     }
 
-    // add method with explicit target unit
-
+    // UC7 Addition with explicit target unit
     public QuantityLength add(QuantityLength other, LengthUnit targetUnit) {
 
         if (other == null) {
@@ -57,16 +67,13 @@ public class QuantityLength {
             throw new IllegalArgumentException("Target unit cannot be null");
         }
 
-        double sumFeet = addInFeet(other);
+        double sumFeet =
+                unit.convertToBaseUnit(value) +
+                other.unit.convertToBaseUnit(other.value);
 
-        double result = targetUnit.fromFeet(sumFeet);
+        double result = targetUnit.convertFromBaseUnit(sumFeet);
 
         return new QuantityLength(result, targetUnit);
-    }
-
-    // private unity method
-    private double addInFeet(QuantityLength other) {
-        return this.convertToBase() + other.convertToBase();
     }
 
     @Override
@@ -78,12 +85,15 @@ public class QuantityLength {
 
         QuantityLength other = (QuantityLength) obj;
 
-        return Double.compare(this.convertToBase(), other.convertToBase()) == 0;
+        double thisFeet = unit.convertToBaseUnit(value);
+        double otherFeet = other.unit.convertToBaseUnit(other.value);
+
+        return Double.compare(thisFeet, otherFeet) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Double.hashCode(convertToBase());
+        return Double.hashCode(unit.convertToBaseUnit(value));
     }
 
     @Override
