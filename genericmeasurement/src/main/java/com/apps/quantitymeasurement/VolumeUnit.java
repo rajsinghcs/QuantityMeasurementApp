@@ -18,16 +18,6 @@ public enum VolumeUnit implements IMeasurable {
     }
 
     @Override
-    public double convertToBaseUnit(double value) {
-        return value * conversionFactor;
-    }
-
-    @Override
-    public double convertFromBaseUnit(double baseValue) {
-        return baseValue / conversionFactor;
-    }
-
-    @Override
     public String getUnitName() {
         return name();
     }
