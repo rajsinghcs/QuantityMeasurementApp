@@ -5,19 +5,25 @@ public enum LengthUnit {
     FEET(1.0),
     INCHES(1.0 / 12.0),
     YARDS(3.0),
-    CENTIMETERS(0.0328084);
+    CENTIMETERS(1.0 / 30.48);
 
-    private final double toFeetFactor;
+    private final double conversionFactor;
 
-    LengthUnit(double toFeetFactor) {
-        this.toFeetFactor = toFeetFactor;
+    LengthUnit(double conversionFactor) {
+        this.conversionFactor = conversionFactor;
     }
 
-    public double toFeet(double value) {
-        return value * toFeetFactor;
+    public double getConversionFactor() {
+        return conversionFactor;
     }
 
-    public double fromFeet(double feet) {
-        return feet / toFeetFactor;
+    // Convert value in this unit → feet (base unit)
+    public double convertToBaseUnit(double value) {
+        return value * conversionFactor;
+    }
+
+    // Convert value from feet → this unit
+    public double convertFromBaseUnit(double baseValue) {
+        return baseValue / conversionFactor;
     }
 }
