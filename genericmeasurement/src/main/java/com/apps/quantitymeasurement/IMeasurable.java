@@ -1,4 +1,5 @@
 package com.apps.quantitymeasurement;
+
 public interface IMeasurable {
 
     double getConversionFactor();
@@ -12,4 +13,15 @@ public interface IMeasurable {
     }
 
     String getUnitName();
+
+    // Default lambda for arithmetic support
+    SupportsArithmetic supportsArithmetic = () -> true;
+
+    default boolean supportsArithmetic() {
+        return supportsArithmetic.isSupported();
+    }
+
+    default void validateOperationSupport(String operation) {
+        // default: do nothing
+    }
 }
