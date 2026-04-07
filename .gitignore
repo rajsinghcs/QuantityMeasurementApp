@@ -1,50 +1,33 @@
-# -------------------------
-# Java / Build files
-# -------------------------
-*.class
-*.log
-*.ctxt
-.mtj.tmp/
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# Virtual machine crash logs
-hs_err_pid*
-replay_pid*
-.vscode/
-
-# -------------------------
-# Maven / Eclipse
-# -------------------------
-/target/                 # Maven build output
+### STS ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
-.properties
-/*.launch
+.settings
+.springBeans
+.sts4-cache
 
-# -------------------------
-# IDE / editor files
-# -------------------------
-*.iml                   # IntelliJ IDEA
-/.idea/                 # IntelliJ IDEA folder
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# -------------------------
-# OS files
-# -------------------------
-.DS_Store               # macOS
-Thumbs.db               # Windows
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# -------------------------
-# Optional: temporary files
-# -------------------------
-*.tmp
-*.swp
-/target/
+### VS Code ###
+.vscode/
